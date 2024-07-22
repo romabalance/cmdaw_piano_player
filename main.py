@@ -61,16 +61,14 @@ def play_midi():
                 raise ValueError('wrong command (0-5 available only)')
             # send request to cmdaw_request
             response = json.loads(
-                make_request_to_request_cmdaw_request(request_cmdaw_request_api=request_cmdaw_request_api))
-            if response['status_code'] == 200:
-                delays_in_seconds_and_rtmidi_messages = convert_song_sequence_response_to_delays_in_seconds_and_rtmidi_messages(
-                    song_sequence_response=response, bpm=request_cmdaw_request_api['bpm']
-                )
-            else:
-                print(response)
-                return
+            make_request_to_request_cmdaw_request(request_cmdaw_request_api=request_cmdaw_request_api))
+            delays_in_seconds_and_rtmidi_messages = convert_song_sequence_response_to_delays_in_seconds_and_rtmidi_messages(
+                song_sequence_response=response, bpm=request_cmdaw_request_api['bpm']
+            )
             # play midi
             for delay_in_seconds, rtmidi_message in delays_in_seconds_and_rtmidi_messages:
+                if command == 0:
+                    return
                 # randomize time
                 random_time_offset = delay_in_seconds * uniform(0, speed_randomizer_amount)
                 time.sleep(delay_in_seconds + random_time_offset)

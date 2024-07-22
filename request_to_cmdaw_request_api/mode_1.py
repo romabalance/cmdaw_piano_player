@@ -10,8 +10,8 @@ def get_mode_1_request():
     semitones_random = randint(0, 12)
     humanize_tag = choice(['humanize_mid', 'humanize_low', 'humanize_high'])
     swing_tag, swing_amount_tag = choice([
-        ['groove_type_swing_triplet_8', choice(['groove_set_amount_low', 'groove_set_amount_mid'])],
-        ['groove_type_swing_8', choice(['groove_set_amount_low', 'groove_set_amount_mid'])],
+        ['groove_type_swing_triplet_8', choice(['groove_set_amount_low'])],
+        ['groove_type_swing_8', choice(['groove_set_amount_low'])],
         ['groove_type_swing_16',
          choice(['groove_set_amount_low', 'groove_set_amount_mid', 'groove_set_amount_high'])]
     ])
