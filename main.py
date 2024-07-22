@@ -15,7 +15,7 @@ app = FastAPI()
 
 command = None
 
-MIDI_PORT = os.getenv('MIDI_PORT')
+MIDI_PORT = int(os.getenv('MIDI_PORT'))
 
 
 def play_midi():
