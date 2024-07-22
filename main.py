@@ -1,4 +1,5 @@
 import json
+import os
 import random
 
 from fastapi import FastAPI, HTTPException
@@ -14,6 +15,8 @@ app = FastAPI()
 
 command = None
 
+MIDI_PORT = os.getenv('MIDI_PORT')
+
 
 def play_midi():
     # open midi port
@@ -21,8 +24,8 @@ def play_midi():
     available_ports = midiout.get_ports()
     print(f'available midi ports: {available_ports}')
     try:
-        midiout.open_port(0)  # ! CHANGE PORT IF NEEDED !
-        print(f'CONNECTED to {available_ports[0]}')
+        midiout.open_port(MIDI_PORT)  # ! CHANGE PORT IF NEEDED !
+        print(f'CONNECTED to {available_ports[MIDI_PORT]}')
     except:
         print('NO MIDI PORTS, PLEASE SET UP VIRTUAL MIDI!')
         return
@@ -34,6 +37,7 @@ def play_midi():
                 # SEND NOTE OFF TO ALL NOTES IN 1, 2 MIDI CHANNELS
                 for midi_channel in range(2):
                     for pitch in range(128):
+                        time.sleep(0.01)  # slow down sending messages little bit
                         midiout.send_message([0x80 | midi_channel, pitch, 0])
                 del midiout
                 return
