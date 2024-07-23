@@ -43,7 +43,7 @@ def play_midi():
                 return
             if command == 1:
                 request_cmdaw_request_api = get_mode_1_request()
-                speed_randomizer_amount = 0.08
+                speed_randomizer_amount = uniform(0.05, 0.2)
                 velocity_randomizer_amount = 0.15
             elif command == 2:
                 request_cmdaw_request_api = get_mode_1_request()
@@ -64,8 +64,9 @@ def play_midi():
             else:
                 raise ValueError('wrong command (0-5 available only)')
             # send request to cmdaw_request
+            print(request_cmdaw_request_api)
             response = json.loads(
-            make_request_to_request_cmdaw_request(request_cmdaw_request_api=request_cmdaw_request_api))
+                make_request_to_request_cmdaw_request(request_cmdaw_request_api=request_cmdaw_request_api))
             delays_in_seconds_and_rtmidi_messages = convert_song_sequence_response_to_delays_in_seconds_and_rtmidi_messages(
                 song_sequence_response=response, bpm=request_cmdaw_request_api['bpm']
             )
@@ -102,5 +103,5 @@ def play_command(cmd: int):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=3333)
 
+    uvicorn.run(app, host="127.0.0.1", port=3333)

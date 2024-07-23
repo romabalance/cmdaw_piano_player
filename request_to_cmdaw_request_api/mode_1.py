@@ -6,23 +6,34 @@ OFFSET_SEMITONES = 48
 def get_mode_1_request():
     # general tags and parameters
     bpm = randint(115, 165)
-    scale = 'major'
-    semitones_random = randint(0, 12)
+
+    scale, semitones_random = choice([
+        ['major', 0],
+        ['major', 0],
+        ['major', 2],
+        ['major', 4],
+        ['major', 5],
+        ['major', 7],
+        ['major', 9],
+
+        # ['minor', 2],
+        # ['minor', 9]
+    ])
+
     humanize_tag = choice(['humanize_mid', 'humanize_low', 'humanize_high'])
     swing_tag, swing_amount_tag = choice([
-        ['groove_type_swing_triplet_8', choice(['groove_set_amount_low'])],
-        ['groove_type_swing_8', choice(['groove_set_amount_low'])],
         ['groove_type_swing_16',
          choice(['groove_set_amount_low', 'groove_set_amount_mid', 'groove_set_amount_high'])]
     ])
-    degrees_tag = 'degrees_by_importance_145_mostly'
+    degrees_tag_bass = choice(['degrees_by_importance_strong', 'degrees_by_importance_strong', 'degrees_by_importance_strong', 'degrees_by_importance_strong_and_weak', 'degrees_by_importance_145_mostly'])
+    degrees_tag_accomp = choice(['degrees_by_importance_strong_and_weak', 'degrees_by_importance_145_mostly', 'degrees_by_importance_145_mostly'])
     limit_degree_range_tag = choice(['limit_degree_range_14'])
     bass_sequence_tags = [
         choice([
             'create_from_data_bass_neoclassic_wedding_2_bars',
             'create_from_data_bass_neoclassic_wedding_1_bar'
         ]),
-        degrees_tag,
+        degrees_tag_bass,
         swing_tag,
         swing_amount_tag,
         humanize_tag,
@@ -31,6 +42,8 @@ def get_mode_1_request():
         'transpose_degree_src_from_harmony_main',
 
         choice([
+            'vary_continue_right_mid',
+            'vary_continue_right_low',
             'vary_continue_right_mid',
             'vary_continue_right_low',
             'vary_continue_right_high',
@@ -48,7 +61,7 @@ def get_mode_1_request():
         choice([
             'create_from_data_accomp_neoclassic_wedding_4_bars',
         ]),
-        degrees_tag,
+        degrees_tag_accomp,
         swing_tag,
         swing_amount_tag,
         humanize_tag,
@@ -57,6 +70,8 @@ def get_mode_1_request():
         'transpose_degree_src_from_harmony_main',
 
         choice([
+            'vary_continue_right_mid',
+            'vary_continue_right_low',
             'vary_continue_right_mid',
             'vary_continue_right_low',
             'vary_continue_right_high'
@@ -109,7 +124,7 @@ def get_mode_1_request():
             'create_by_three_next_chainer_neoclassic_short_parts'
         ],
         'microarrangement': [
-            'create_by_three_next_flow_ambient_jungle_all_parts_with_harmony_break_without_kick_clap_change_rate_2_scenes',
+            'create_by_three_next_flow_neoclassic_wedding_all_parts_with_harmony_drop_with_bass_and_accomp'
         ],
         'sequence': {
             'kick_main': [],
